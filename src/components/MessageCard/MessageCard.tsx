@@ -1,5 +1,6 @@
 import React from 'react';
 import { MessageCardProps } from '../../types/types';
+import styles from './style.module.css';
 
 export class MessageCard extends React.Component<MessageCardProps> {
   constructor(props: MessageCardProps) {
@@ -8,9 +9,9 @@ export class MessageCard extends React.Component<MessageCardProps> {
 
   public render() {
     return (
-      <div>
-        <h2>{this.props.name} says:</h2>
-        <p>{this.props.message}</p>
+      <div className={styles.card}>
+        <h2 className={styles.title}>{this.props.name} said:</h2>
+        <p className={styles.text}>{this.props.message}</p>
       </div>
     );
   }

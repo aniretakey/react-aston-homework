@@ -1,6 +1,7 @@
 import React from 'react';
 import { MessageCard } from '../MessageCard/MessageCard';
 import { InputState } from '../../types/types';
+import styles from './style.module.css';
 
 export class Form extends React.Component<Record<string, unknown>, InputState> {
   constructor(props: Record<string, unknown>) {
@@ -63,15 +64,20 @@ export class Form extends React.Component<Record<string, unknown>, InputState> {
     // рендеринг компонента
     console.log('render');
     return (
-      <div>
-        <input
-          type='text'
-          value={this.state.inputValue}
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleClick}>Submit</button>
+      <>
+        <div className={styles.form}>
+          <input
+            type='text'
+            className={styles.input}
+            value={this.state.inputValue}
+            onChange={this.handleChange}
+          />
+          <button onClick={this.handleClick} className={styles.btn}>
+            Say
+          </button>
+        </div>
         <MessageCard name='New User' message={this.state.inputValue} />
-      </div>
+      </>
     );
   }
 }
