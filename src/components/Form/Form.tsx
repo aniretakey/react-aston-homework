@@ -5,6 +5,7 @@ import styles from './style.module.css';
 
 export class Form extends React.Component<Record<string, unknown>, InputState> {
   btnRef: React.RefObject<HTMLButtonElement>;
+  inputRef: React.RefObject<HTMLInputElement>;
   constructor(props: Record<string, unknown>) {
     // вызывается при начальной иницализации компонента
     super(props);
@@ -12,6 +13,7 @@ export class Form extends React.Component<Record<string, unknown>, InputState> {
       inputValue: '',
     };
     this.btnRef = React.createRef();
+    this.inputRef = React.createRef();
     console.log('constructor');
   }
 
@@ -22,6 +24,10 @@ export class Form extends React.Component<Record<string, unknown>, InputState> {
     } else {
       this.btnRef.current?.removeAttribute('disabled');
     }
+  };
+
+  public setInputFocused = () => {
+    this.inputRef.current?.focus();
   };
 
   public handleClick = () => {
@@ -74,18 +80,24 @@ export class Form extends React.Component<Record<string, unknown>, InputState> {
       <>
         <div className={styles.form}>
           <input
+            ref={this.inputRef}
             type='text'
             className={styles.input}
             value={this.state.inputValue}
             onChange={this.handleChange}
           />
-          <button
-            ref={this.btnRef}
-            onClick={this.handleClick}
-            className={styles.btn}
-          >
-            Say
-          </button>
+          <div className={styles.btns}>
+            <button
+              ref={this.btnRef}
+              onClick={this.handleClick}
+              className={styles.btn}
+            >
+              Say
+            </button>
+            <button onClick={this.setInputFocused} className={styles.btn}>
+              Focus
+            </button>
+          </div>
         </div>
         <MessageCard name='New User' message={this.state.inputValue} />
       </>
