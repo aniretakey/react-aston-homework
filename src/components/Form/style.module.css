@@ -45,3 +45,13 @@
   background-color: #6a877d;
   border: 1px solid #6a877d;
 }
+
+.btn[disabled] {
+  cursor: not-allowed;
+  opacity: 0.65;
+  background-color: gray;
+}
+
+.btn[disabled]:hover {
+  background-color: gray;
+}
