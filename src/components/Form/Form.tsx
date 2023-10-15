@@ -4,17 +4,24 @@ import { InputState } from '../../types/types';
 import styles from './style.module.css';
 
 export class Form extends React.Component<Record<string, unknown>, InputState> {
+  btnRef: React.RefObject<HTMLButtonElement>;
   constructor(props: Record<string, unknown>) {
     // вызывается при начальной иницализации компонента
     super(props);
     this.state = {
       inputValue: '',
     };
+    this.btnRef = React.createRef();
     console.log('constructor');
   }
 
   public handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ inputValue: e.target.value });
+    if (e.target.value.toLowerCase() === 'реакт') {
+      this.btnRef.current?.setAttribute('disabled', 'true');
+    } else {
+      this.btnRef.current?.removeAttribute('disabled');
+    }
   };
 
   public handleClick = () => {
@@ -72,7 +79,11 @@ export class Form extends React.Component<Record<string, unknown>, InputState> {
             value={this.state.inputValue}
             onChange={this.handleChange}
           />
-          <button onClick={this.handleClick} className={styles.btn}>
+          <button
+            ref={this.btnRef}
+            onClick={this.handleClick}
+            className={styles.btn}
+          >
             Say
           </button>
         </div>
